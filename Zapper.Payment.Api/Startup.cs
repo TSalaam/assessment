@@ -21,7 +21,7 @@ namespace Zapper.Payment.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TransactionContext>(opt =>
-               opt.UseInMemoryDatabase("Transactions"));
+               opt.UseInMemoryDatabase("Transactions"), ServiceLifetime.Singleton);
             services.AddControllers();
         }
 
@@ -32,8 +32,6 @@ namespace Zapper.Payment.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
