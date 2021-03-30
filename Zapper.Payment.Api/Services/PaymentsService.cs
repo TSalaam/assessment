@@ -15,9 +15,25 @@ namespace Zapper.Payment.Api.Services {
 
         private readonly IPaymentsRepository _paymentsRepository;
 
+        private readonly int _maxTransactionValue;
+
         public PaymentsService(IPaymentsRepository paymentsRepository) {
 
             _paymentsRepository = paymentsRepository;
+
+
+            //TODO: Read from appsettings
+
+            _maxTransactionValue = 5000;
+        }
+
+        public async Task<int> AddTransaction(Transaction transaction) {
+
+            if (transaction.Amount > _maxTransactionValue) {
+                throw new ArgumentOutOfRangeException(nameof(transaction.Amount), $"Specified amount of R {transaction.Amount} exceeds maximum allowed transaction value");
+            }
+
+            return await _paymentsRepository.AddTransaction(transaction);
         }
 
         public async Task<List<Transaction>> GetList(TxSearchRequest request) {

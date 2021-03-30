@@ -38,9 +38,7 @@ namespace Zapper.Payment.Api.Controllers {
 
             _logger.LogInformation("Creating new transaction");
 
-            _context.Transactions.Add(transaction);
-
-            await _context.SaveChangesAsync();
+            await _paymentsService.AddTransaction(transaction);
 
             return Ok();
         }

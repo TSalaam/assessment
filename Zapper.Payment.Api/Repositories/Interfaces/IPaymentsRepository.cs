@@ -10,6 +10,8 @@ namespace Zapper.Payment.Api.Repositories.Interfaces {
     
     public interface IPaymentsRepository {
 
-        public Task<List<Transaction>> GetList(TxSearchRequest request);
+        Task<int> AddTransaction(Transaction transaction);
+
+        Task<List<Transaction>> GetList(TxSearchRequest request);
     }
 }

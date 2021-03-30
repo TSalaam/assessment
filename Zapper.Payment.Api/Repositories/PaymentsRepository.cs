@@ -20,6 +20,18 @@ namespace Zapper.Payment.Api.Repositories {
             _config = config;
         }
 
+        public async Task<int> AddTransaction(Transaction transaction) {
+
+            var optionsBuilder = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<TransactionContext>();
+
+            using (var db = new TransactionContext(optionsBuilder.Options)) {                
+
+                db.Transactions.Add(transaction);
+
+                return await db.SaveChangesAsync();
+            }
+        }
+
         public async Task<List<Transaction>> GetList(TxSearchRequest request) {
 
             var optionsBuilder = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<TransactionContext>();
