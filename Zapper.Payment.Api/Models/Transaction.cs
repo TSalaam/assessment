@@ -2,11 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
-namespace Zapper.Payment.Api.Models
-{
+namespace Zapper.Payment.Api.Models {
+
     [DataContract(Name = "transaction")]
-    public class Transaction
-    {
+    public class Transaction {
         [DataMember(Name = "id")]
         public int Id { get; set; }
         [DataMember(Name = "reference")]

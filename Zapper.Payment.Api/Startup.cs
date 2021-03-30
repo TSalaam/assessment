@@ -1,35 +1,44 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using Microsoft.EntityFrameworkCore;
+
 using Zapper.Payment.Api.Entities;
 
-namespace Zapper.Payment.Api
-{
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+namespace Zapper.Payment.Api {
+
+    public class Startup {
+
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.     
+        /// </summary>
+        /// <param name="services">The services.</param>
+        public void ConfigureServices(IServiceCollection services) {
+
             services.AddDbContext<TransactionContext>(opt =>
                opt.UseInMemoryDatabase("Transactions"), ServiceLifetime.Singleton);
+
             services.AddControllers();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.    
+        /// </summary>
+        /// <param name="app">The application.</param>
+        /// <param name="env">The env.</param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
 
@@ -37,8 +46,7 @@ namespace Zapper.Payment.Api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }
