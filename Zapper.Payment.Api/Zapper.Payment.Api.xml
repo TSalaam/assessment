@@ -4,6 +4,43 @@
         <name>Zapper.Payment.Api</name>
     </assembly>
     <members>
+        <member name="T:Zapper.Payment.Api.Controllers.PaymentsController">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:Zapper.Payment.Api.Controllers.PaymentsController.#ctor(Microsoft.Extensions.Logging.ILogger{Zapper.Payment.Api.Controllers.PaymentsController},Zapper.Payment.Api.Entities.TransactionContext,Zapper.Payment.Api.Services.Interfaces.IPaymentsService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zapper.Payment.Api.Controllers.PaymentsController"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="context">The context.</param>
+            <param name="paymentsService">The payments service.</param>
+        </member>
+        <member name="T:Zapper.Payment.Api.Filters.ValidateFilterAttribute">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute" />
+        </member>
+        <member name="M:Zapper.Payment.Api.Filters.ValidateFilterAttribute.OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            </summary>
+            <param name="context"></param>
+            <inheritdoc />
+        </member>
+        <member name="T:Zapper.Payment.Api.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Zapper.Payment.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zapper.Payment.Api.Startup"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+        </member>
         <member name="M:Zapper.Payment.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             This method gets called by the runtime. Use this method to add services to the container.     

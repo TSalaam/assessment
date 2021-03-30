@@ -7,16 +7,27 @@ using Microsoft.Extensions.Hosting;
 
 using Microsoft.EntityFrameworkCore;
 
+using FluentValidation.AspNetCore;
+
 using Zapper.Payment.Api.Entities;
 using Zapper.Payment.Api.Repositories;
 using Zapper.Payment.Api.Repositories.Interfaces;
 using Zapper.Payment.Api.Services;
 using Zapper.Payment.Api.Services.Interfaces;
+using Zapper.Payment.Api.Validators;
+using Zapper.Payment.Api.Filters;
 
 namespace Zapper.Payment.Api {
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class Startup {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
@@ -32,7 +43,11 @@ namespace Zapper.Payment.Api {
             services.AddDbContext<TransactionContext>(opt =>
                opt.UseInMemoryDatabase("Transactions"), ServiceLifetime.Singleton);
 
-            services.AddControllers();
+            services.AddControllers(options => {
+                options.Filters.Add(typeof(ValidateFilterAttribute));
+            }).AddFluentValidation(fv => {
+                fv.RegisterValidatorsFromAssemblyContaining<TransactionValidator>();
+            });
 
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo {

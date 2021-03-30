@@ -21,7 +21,6 @@ namespace Zapper.Payment.Api.Services {
 
             _paymentsRepository = paymentsRepository;
 
-
             //TODO: Read from appsettings
 
             _maxTransactionValue = 5000;
