@@ -1,9 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.Extensions.Logging;
+
 using Zapper.Payment.Api.Entities;
 using Zapper.Payment.Api.Models;
+using Zapper.Payment.Api.Models.Requests;
+using Zapper.Payment.Api.Services.Interfaces;
 
 namespace Zapper.Payment.Api.Controllers {
 
@@ -15,10 +21,15 @@ namespace Zapper.Payment.Api.Controllers {
 
         private readonly TransactionContext _context;
 
-        public PaymentsController(ILogger<PaymentsController> logger, TransactionContext context) {
+        private readonly IPaymentsService _paymentsService;
+
+        public PaymentsController(ILogger<PaymentsController> logger, TransactionContext context, IPaymentsService paymentsService) {
 
             _logger = logger;
+
             _context = context;
+
+            _paymentsService = paymentsService;
         }
 
         [HttpPost]
@@ -32,6 +43,20 @@ namespace Zapper.Payment.Api.Controllers {
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(List<Transaction>), StatusCodes.Status200OK)]
+        [Route("transactionSearch")]
+        public async Task<ActionResult<Transaction>> GetAll([FromBody] TxSearchRequest request) {
+
+            _logger.LogInformation("Getting list of transactions");
+
+            var results = await _paymentsService.GetList(request);
+
+            return new OkObjectResult(new {
+                Results = results
+            });
         }
     }
 }

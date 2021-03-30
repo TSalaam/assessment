@@ -1,5 +1,4 @@
 {
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -8,11 +7,12 @@
       "sslPort": 44365
     }
   },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "Zapper.Payment.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "payments",
+      "launchUrl": "documentation",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
